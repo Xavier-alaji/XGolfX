@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Shot index{% endblock %}
+
+{% block body %}
+    <h1>Shot index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Blankshot</th>
+                <th>Club_type</th>
+                <th>Club_subtype</th>
+                <th>Lie_type</th>
+                <th>Lie_subtype</th>
+                <th>Trajectory</th>
+                <th>Wind_type</th>
+                <th>Rain_type</th>
+                <th>Created_at</th>
+                <th>Updated_at</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for shot in shots %}
+            <tr>
+                <td>{{ shot.id }}</td>
+                <td>{{ shot.blankshot ? 'Yes' : 'No' }}</td>
+                <td>{{ shot.clubType }}</td>
+                <td>{{ shot.clubSubtype }}</td>
+                <td>{{ shot.lieType }}</td>
+                <td>{{ shot.lieSubtype }}</td>
+                <td>{{ shot.trajectory }}</td>
+                <td>{{ shot.windType }}</td>
+                <td>{{ shot.rainType }}</td>
+                <td>{{ shot.createdAt ? shot.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ shot.updatedAt ? shot.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('shot_show', {'id': shot.id}) }}">show</a>
+                    <a href="{{ path('shot_edit', {'id': shot.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="12">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('shot_new') }}">Create new</a>
+{% endblock %}
