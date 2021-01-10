@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CourseRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -58,6 +60,16 @@ class Course
      * @ORM\JoinColumn(nullable=false)
      */
     private $updated_by;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Hole::class, mappedBy="course_id", orphanRemoval=true)
+     */
+    private $holes;
+
+    public function __construct()
+    {
+        $this->holes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -156,6 +168,36 @@ class Course
     public function setUpdatedBy(?User $updated_by): self
     {
         $this->updated_by = $updated_by;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Hole[]
+     */
+    public function getHoles(): Collection
+    {
+        return $this->holes;
+    }
+
+    public function addHole(Hole $hole): self
+    {
+        if (!$this->holes->contains($hole)) {
+            $this->holes[] = $hole;
+            $hole->setCourseId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHole(Hole $hole): self
+    {
+        if ($this->holes->removeElement($hole)) {
+            // set the owning side to null (unless already changed)
+            if ($hole->getCourseId() === $this) {
+                $hole->setCourseId(null);
+            }
+        }
 
         return $this;
     }

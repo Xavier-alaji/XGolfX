@@ -59,6 +59,12 @@ class Hole
      */
     private $updated_by;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Course::class, inversedBy="holes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $course_id;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -156,6 +162,18 @@ class Hole
     public function setUpdatedBy(?User $updated_by): self
     {
         $this->updated_by = $updated_by;
+
+        return $this;
+    }
+
+    public function getCourseId(): ?Course
+    {
+        return $this->course_id;
+    }
+
+    public function setCourseId(?Course $course_id): self
+    {
+        $this->course_id = $course_id;
 
         return $this;
     }
