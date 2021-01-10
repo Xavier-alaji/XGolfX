@@ -9,12 +9,15 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>Cross-Golf</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/xavier/workspace/XGolfX/src/Controller/IndexController.php'|file_link(0) }}">src/Controller/IndexController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/xavier/workspace/XGolfX/templates/index/index.html.twig'|file_link(0) }}">templates/index/index.html.twig</a></code></li>
-    </ul>
+    <p>L'application d'entraînement pour golfeur</p>
+
+    <li><a href="/register"> inscription </a></li>
+    {% if app.user %}
+    <li><a href="/logout">deconnexion</a></li>
+        {% else %}
+    <li><a href="/login">connexion</a></li>
+	{% endif %}
 </div>
 {% endblock %}
