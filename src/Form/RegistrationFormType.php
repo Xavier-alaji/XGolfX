@@ -38,8 +38,8 @@ class RegistrationFormType extends AbstractType
                         'message' => 'Please enter a password',
                     ]),
                     new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'min' => 3,
+                        'minMessage' => 'Votre mot de passe doit contenir au moins {{ limit }} caracteres',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
@@ -49,12 +49,12 @@ class RegistrationFormType extends AbstractType
                 'constraints' => [
                     new Length([
                         'min' => 2,
-                        'minMessage' => 'Votre nom d\'utilisateur doit contenir au moins {{ limit }} caractères.',
+                        'minMessage' => 'Votre nom d\'utilisateur doit contenir au moins {{ limit }} caracteres.',
                     ]),
                 ],
             ])
-            ->add('player_index', NumberType::class)
-            ->add('licence_number', TextType::class)
+            ->add('player_index', NumberType::class, ['required' => false])
+            ->add('licence_number', TextType::class, ['required' => false])
         ;
     }
 
