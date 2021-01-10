@@ -13,11 +13,12 @@
 
     <p>L'application d'entraînement pour golfeur</p>
 
-    <li><a href="/register"> inscription </a></li>
     {% if app.user %}
+    <li><a href="/course/new">nouveau parcours</a></li>
     <li><a href="/logout">deconnexion</a></li>
         {% else %}
     <li><a href="/login">connexion</a></li>
+    <li><a href="/register"> inscription </a></li>
 	{% endif %}
 </div>
 {% endblock %}
