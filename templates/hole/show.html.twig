@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hole{% endblock %}
+
+{% block body %}
+    <h1>Hole</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ hole.id }}</td>
+            </tr>
+            <tr>
+                <th>Number</th>
+                <td>{{ hole.number }}</td>
+            </tr>
+            <tr>
+                <th>Par</th>
+                <td>{{ hole.par }}</td>
+            </tr>
+            <tr>
+                <th>Distance</th>
+                <td>{{ hole.distance }}</td>
+            </tr>
+            <tr>
+                <th>Handicap</th>
+                <td>{{ hole.handicap }}</td>
+            </tr>
+            <tr>
+                <th>Created_at</th>
+                <td>{{ hole.createdAt ? hole.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Updated_at</th>
+                <td>{{ hole.updatedAt ? hole.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('hole_index') }}">back to list</a>
+
+    <a href="{{ path('hole_edit', {'id': hole.id}) }}">edit</a>
+
+    {{ include('hole/_delete_form.html.twig') }}
+{% endblock %}

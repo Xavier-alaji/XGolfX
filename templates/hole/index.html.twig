@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hole index{% endblock %}
+
+{% block body %}
+    <h1>Hole index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Number</th>
+                <th>Par</th>
+                <th>Distance</th>
+                <th>Handicap</th>
+                <th>Created_at</th>
+                <th>Updated_at</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for hole in holes %}
+            <tr>
+                <td>{{ hole.id }}</td>
+                <td>{{ hole.number }}</td>
+                <td>{{ hole.par }}</td>
+                <td>{{ hole.distance }}</td>
+                <td>{{ hole.handicap }}</td>
+                <td>{{ hole.createdAt ? hole.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ hole.updatedAt ? hole.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('hole_show', {'id': hole.id}) }}">show</a>
+                    <a href="{{ path('hole_edit', {'id': hole.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('hole_new') }}">Create new</a>
+{% endblock %}

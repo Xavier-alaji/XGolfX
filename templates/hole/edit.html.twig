@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Hole{% endblock %}
+
+{% block body %}
+    <h1>Edit Hole</h1>
+
+    {{ include('hole/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('hole_index') }}">back to list</a>
+
+    {{ include('hole/_delete_form.html.twig') }}
+{% endblock %}
