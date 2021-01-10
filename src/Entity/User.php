@@ -71,10 +71,16 @@ class User implements UserInterface
      */
     private $holes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Shot::class, mappedBy="created_by", orphanRemoval=true)
+     */
+    private $shots;
+
     public function __construct()
     {
         $this->courses = new ArrayCollection();
         $this->holes = new ArrayCollection();
+        $this->shots = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -269,6 +275,36 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($hole->getCreatedBy() === $this) {
                 $hole->setCreatedBy(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Shot[]
+     */
+    public function getShots(): Collection
+    {
+        return $this->shots;
+    }
+
+    public function addShot(Shot $shot): self
+    {
+        if (!$this->shots->contains($shot)) {
+            $this->shots[] = $shot;
+            $shot->setCreatedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeShot(Shot $shot): self
+    {
+        if ($this->shots->removeElement($shot)) {
+            // set the owning side to null (unless already changed)
+            if ($shot->getCreatedBy() === $this) {
+                $shot->setCreatedBy(null);
             }
         }
 

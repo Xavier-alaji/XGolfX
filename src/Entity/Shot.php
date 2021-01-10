@@ -67,6 +67,18 @@ class Shot
      */
     private $updated_at;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="shots")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $created_by;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $updated_by;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -188,6 +200,30 @@ class Shot
     public function setUpdatedAt(\DateTimeInterface $updated_at): self
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function getCreatedBy(): ?User
+    {
+        return $this->created_by;
+    }
+
+    public function setCreatedBy(?User $created_by): self
+    {
+        $this->created_by = $created_by;
+
+        return $this;
+    }
+
+    public function getUpdatedBy(): ?User
+    {
+        return $this->updated_by;
+    }
+
+    public function setUpdatedBy(?User $updated_by): self
+    {
+        $this->updated_by = $updated_by;
 
         return $this;
     }
