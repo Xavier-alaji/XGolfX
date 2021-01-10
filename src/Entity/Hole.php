@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\HoleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -64,6 +66,16 @@ class Hole
      * @ORM\JoinColumn(nullable=false)
      */
     private $course_id;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Shot::class, mappedBy="hole_id", orphanRemoval=true)
+     */
+    private $shots;
+
+    public function __construct()
+    {
+        $this->shots = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -174,6 +186,36 @@ class Hole
     public function setCourseId(?Course $course_id): self
     {
         $this->course_id = $course_id;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Shot[]
+     */
+    public function getShots(): Collection
+    {
+        return $this->shots;
+    }
+
+    public function addShot(Shot $shot): self
+    {
+        if (!$this->shots->contains($shot)) {
+            $this->shots[] = $shot;
+            $shot->setHoleId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeShot(Shot $shot): self
+    {
+        if ($this->shots->removeElement($shot)) {
+            // set the owning side to null (unless already changed)
+            if ($shot->getHoleId() === $this) {
+                $shot->setHoleId(null);
+            }
+        }
 
         return $this;
     }

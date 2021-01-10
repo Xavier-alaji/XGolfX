@@ -79,6 +79,12 @@ class Shot
      */
     private $updated_by;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Hole::class, inversedBy="shots")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $hole_id;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -224,6 +230,18 @@ class Shot
     public function setUpdatedBy(?User $updated_by): self
     {
         $this->updated_by = $updated_by;
+
+        return $this;
+    }
+
+    public function getHoleId(): ?Hole
+    {
+        return $this->hole_id;
+    }
+
+    public function setHoleId(?Hole $hole_id): self
+    {
+        $this->hole_id = $hole_id;
 
         return $this;
     }
