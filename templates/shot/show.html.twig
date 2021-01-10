@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Shot{% endblock %}
+
+{% block body %}
+    <h1>Shot</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ shot.id }}</td>
+            </tr>
+            <tr>
+                <th>Blankshot</th>
+                <td>{{ shot.blankshot ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Club_type</th>
+                <td>{{ shot.clubType }}</td>
+            </tr>
+            <tr>
+                <th>Club_subtype</th>
+                <td>{{ shot.clubSubtype }}</td>
+            </tr>
+            <tr>
+                <th>Lie_type</th>
+                <td>{{ shot.lieType }}</td>
+            </tr>
+            <tr>
+                <th>Lie_subtype</th>
+                <td>{{ shot.lieSubtype }}</td>
+            </tr>
+            <tr>
+                <th>Trajectory</th>
+                <td>{{ shot.trajectory }}</td>
+            </tr>
+            <tr>
+                <th>Wind_type</th>
+                <td>{{ shot.windType }}</td>
+            </tr>
+            <tr>
+                <th>Rain_type</th>
+                <td>{{ shot.rainType }}</td>
+            </tr>
+            <tr>
+                <th>Created_at</th>
+                <td>{{ shot.createdAt ? shot.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Updated_at</th>
+                <td>{{ shot.updatedAt ? shot.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('shot_index') }}">back to list</a>
+
+    <a href="{{ path('shot_edit', {'id': shot.id}) }}">edit</a>
+
+    {{ include('shot/_delete_form.html.twig') }}
+{% endblock %}
